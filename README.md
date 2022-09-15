@@ -22,7 +22,8 @@ void callbackFunction() {
   });
 }
 
-void main() {
+Future<void> main() async {
+  await NotificationServicePlugin.instance.initialize(callbackFunction);
   runApp(MyApp());
 }
 ```

@@ -5,5 +5,3 @@
   * check if permission given
   * open permission setting
   * request permission if not acquired
-
-* TODO: Describe initial release.

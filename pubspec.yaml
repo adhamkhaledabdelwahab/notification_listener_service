@@ -1,7 +1,7 @@
 name: notifications_listener_service
 description: Notifications listener service
 version: 0.0.1
-homepage:
+homepage: https://github.com/adhamkhaledabdelwahab/notification_listener_service
 
 environment:
   sdk: ">=2.17.6 <3.0.0"

@@ -30,3 +30,29 @@ Future<void> main() async {
 }
 ```
 
+## Features
+
+  * Getting Device Information 
+
+  ```dart
+  final DeviceInfo? deviceInfo = await NotificationServicePlugin.instance.getDeviceInfo();
+  ```
+  
+  * Check if permission granted or not
+
+  ```dart
+  final bool isGranted = await NotificationServicePlugin.instance.isServicePermissionGranted();
+  ```
+  
+  * Requesting notification listener service permission
+
+  ```dart
+  await NotificationServicePlugin.instance.requestServicePermission();
+  ```
+  
+  * Requesting notification listener service permission if not granted
+
+  ```dart
+  await NotificationServicePlugin.instance.requestPermissionsIfDenied();
+  ```
+

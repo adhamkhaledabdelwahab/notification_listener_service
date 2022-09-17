@@ -5,3 +5,8 @@
   * check if permission given
   * open permission setting
   * request permission if not acquired
+
+#0.0.2
+
+* update release
+  * some simple code modifications

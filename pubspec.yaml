@@ -1,6 +1,6 @@
 name: notifications_listener_service
 description: Notifications listener service an android plugin to listen for all upcoming notifications
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/adhamkhaledabdelwahab/notification_listener_service
 
 environment:

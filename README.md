@@ -16,6 +16,8 @@ function
 ## How to use plugin?
 
 ```dart
+import 'package:notifications_listener_service/notifications_listener_service.dart';
+
 void callbackFunction() {
   NotificationServicePlugin.instance.executeNotificationListener((notificationEvent) {
     print("received notification info: $notificationEvent");

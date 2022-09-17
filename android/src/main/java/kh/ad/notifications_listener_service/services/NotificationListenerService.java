@@ -24,6 +24,12 @@ public class NotificationListenerService
     @Override
     public void onCreate() {
         super.onCreate();
+        initService();
+        Log.i(TAG, "On Service Created");
+
+    }
+
+    private void initService() {
         Context mContext = this;
         handler = new Handler(Looper.getMainLooper());
         FlutterEngine engine = NotificationServiceFlutterEngineUtils.updateEngine(mContext);
@@ -32,10 +38,7 @@ public class NotificationListenerService
                 engine.getDartExecutor().getBinaryMessenger(),
                 RUN_DART_CHANNEL_NAME
         );
-        Log.i(TAG, "On Service Created");
-
     }
-
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {

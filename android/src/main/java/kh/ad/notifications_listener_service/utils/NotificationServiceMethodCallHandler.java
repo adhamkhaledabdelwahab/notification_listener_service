@@ -1,7 +1,6 @@
 package kh.ad.notifications_listener_service.utils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -55,10 +54,7 @@ public class NotificationServiceMethodCallHandler implements MethodChannel.Metho
                 try {
                     if (call.arguments != null) {
                         long callback = (long) call.arguments;
-                        SharedPreferences sharedPreferences = mContext.getSharedPreferences("NotificationCallback", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putLong("OnReceiveNotification", callback);
-                        editor.apply();
+                        SharedPreferencesUtils.getInstance(mContext).saveNotificationCallback(callback);
                         result.success(true);
                     } else {
                         String errMessage = "Callback Method Can't Be Null";

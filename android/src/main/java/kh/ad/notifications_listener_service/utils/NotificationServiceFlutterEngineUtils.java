@@ -11,15 +11,13 @@ import io.flutter.embedding.engine.dart.DartExecutor;
 import io.flutter.view.FlutterCallbackInformation;
 
 public class NotificationServiceFlutterEngineUtils {
-//    private static final String FlutterEngineKey = "kh.ad.notifications_listener_service/FlutterEngineKey";
 
     @SuppressLint("LongLogTag")
     public static FlutterEngine updateEngine(@NonNull Context context) {
-        FlutterEngine engine = null;
+        FlutterEngine engine;
         engine = new FlutterEngine(context);
-        long callback = context.getSharedPreferences("NotificationCallback",
-                Context.MODE_PRIVATE).getLong("OnReceiveNotification", 0L);
-        if (callback != 0L) {
+        Long callback = SharedPreferencesUtils.getInstance(context).getNotificationCallback();
+        if (callback != null) {
             FlutterCallbackInformation callbackInformation =
                     FlutterCallbackInformation.lookupCallbackInformation(callback);
             DartExecutor.DartCallback dartCallback = new DartExecutor
@@ -27,7 +25,6 @@ public class NotificationServiceFlutterEngineUtils {
                     context.getPackageCodePath(), callbackInformation);
             engine.getDartExecutor().executeDartCallback(dartCallback);
         }
-
 
         if (!engine.getAccessibilityChannel().flutterJNI.isAttached()) {
             FlutterInjector.instance().flutterLoader().startInitialization(context);

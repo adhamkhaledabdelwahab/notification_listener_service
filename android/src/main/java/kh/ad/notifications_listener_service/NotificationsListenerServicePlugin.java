@@ -36,5 +36,4 @@ public class NotificationsListenerServicePlugin implements FlutterPlugin {
         handler = null;
         Log.i(TAG, "On Detached From Engine");
     }
-
 }

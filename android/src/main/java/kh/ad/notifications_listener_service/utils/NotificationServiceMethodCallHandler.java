@@ -25,7 +25,7 @@ public class NotificationServiceMethodCallHandler implements MethodChannel.Metho
         switch (call.method) {
             case "isNotificationPermissionGranted":
                 try {
-                    boolean isRunning = NotificationServicePermissionUtils.isNotificationServiceEnabled(mContext);
+                    boolean isRunning = NotificationServiceUtils.isNotificationServiceEnabled(mContext);
                     result.success(isRunning);
                 } catch (Exception e) {
                     result.error(String.valueOf(e.hashCode()), e.getMessage(), null);
@@ -33,7 +33,7 @@ public class NotificationServiceMethodCallHandler implements MethodChannel.Metho
                 break;
             case "requestNotificationPermission":
                 try {
-                    NotificationServicePermissionUtils.requestPermission(mContext);
+                    NotificationServiceUtils.requestPermission(mContext);
                     result.success(true);
                 } catch (Exception e) {
                     result.error(String.valueOf(e.hashCode()), e.getMessage(), null);
@@ -60,6 +60,30 @@ public class NotificationServiceMethodCallHandler implements MethodChannel.Metho
                         String errMessage = "Callback Method Can't Be Null";
                         result.error("", errMessage, null);
                     }
+                } catch (Exception e) {
+                    result.error(String.valueOf(e.hashCode()), e.getMessage(), null);
+                }
+                break;
+            case "startService":
+                try {
+                    NotificationServiceUtils.startService(mContext);
+                    result.success(null);
+                } catch (Exception e) {
+                    result.error(String.valueOf(e.hashCode()), e.getMessage(), null);
+                }
+                break;
+            case "stopService":
+                try {
+                    NotificationServiceUtils.stopService(mContext);
+                    result.success(null);
+                } catch (Exception e) {
+                    result.error(String.valueOf(e.hashCode()), e.getMessage(), null);
+                }
+                break;
+            case "isServiceRunning":
+                try {
+                    boolean running = NotificationServiceUtils.isServiceRunning(mContext);
+                    result.success(running);
                 } catch (Exception e) {
                     result.error(String.valueOf(e.hashCode()), e.getMessage(), null);
                 }

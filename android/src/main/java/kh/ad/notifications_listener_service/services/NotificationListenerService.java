@@ -20,6 +20,7 @@ public class NotificationListenerService
     private final String TAG = "NotificationListenerService";
     private Handler handler;
     private MethodChannel onNotificationChannel;
+    private Context mContext;
 
     @Override
     public void onCreate() {
@@ -30,8 +31,12 @@ public class NotificationListenerService
     }
 
     private void initService() {
-        Context mContext = this;
+        mContext = this;
         handler = new Handler(Looper.getMainLooper());
+        initChannel();
+    }
+
+    private void initChannel() {
         FlutterEngine engine = NotificationServiceFlutterEngineUtils.updateEngine(mContext);
         String RUN_DART_CHANNEL_NAME = "notifications_listener_service/RUN_DART_BACKGROUND_METHOD";
         onNotificationChannel = new MethodChannel(
@@ -73,7 +78,6 @@ public class NotificationListenerService
                 onNotificationChannel.invokeMethod(methodName, map);
                 Log.i(TAG, logMessage);
             });
-
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }

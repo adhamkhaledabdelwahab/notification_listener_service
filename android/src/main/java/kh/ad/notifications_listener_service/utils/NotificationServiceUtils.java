@@ -1,12 +1,41 @@
 package kh.ad.notifications_listener_service.utils;
 
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
 import android.text.TextUtils;
 
-public class NotificationServicePermissionUtils {
+import java.util.List;
+
+import kh.ad.notifications_listener_service.services.NotificationListenerService;
+
+public class NotificationServiceUtils {
+    public static boolean isServiceRunning(Context context) {
+        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        final List<ActivityManager.RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
+
+        for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
+            if (runningServiceInfo.service.getClassName().equals(NotificationListenerService.class.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void startService(Context context) {
+        context.startService(getService(context));
+    }
+
+    public static void stopService(Context context) {
+        context.stopService(getService(context));
+    }
+
+    private static Intent getService(Context context) {
+        return new Intent(context, NotificationListenerService.class);
+    }
+
     public static boolean isNotificationServiceEnabled(Context c) {
         String pkgName = c.getPackageName();
         final String flat = Settings.Secure.getString(c.getContentResolver(),

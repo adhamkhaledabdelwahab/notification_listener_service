@@ -22,6 +22,9 @@ class NotificationServicePlugin {
   final String _getDeviceInfoMethod = "getDeviceInfo";
   final String _registerNotificationCallback = "registerNotificationCallback";
   final String _channelNameExistsMethod = "isExist";
+  final String _stopServiceMethod = "stopService";
+  final String _isServiceRunningMethod = "isServiceRunning";
+  final String _startServiceMethod = "startService";
 
   NotificationServicePlugin._constructor();
 
@@ -49,6 +52,50 @@ class NotificationServicePlugin {
     } catch (e) {
       _printError(
         "Fetching Notifications Listener Service Permission State Error: $e",
+      );
+      return false;
+    }
+  }
+
+  Future<void> _stopService() async {
+    await (await _testWhichChannel())?.invokeMethod(_stopServiceMethod);
+  }
+
+  Future<void> stopService() async {
+    try {
+      await _stopService();
+    } catch (e) {
+      _printError(
+        "Stop service Error: $e",
+      );
+    }
+  }
+
+  Future<void> _startService() async {
+    await (await _testWhichChannel())?.invokeMethod(_startServiceMethod);
+  }
+
+  Future<void> startService() async {
+    try {
+      await _startService();
+    } catch (e) {
+      _printError(
+        "Start Service Error: $e",
+      );
+    }
+  }
+
+  Future<bool> _isServiceRunning() async {
+    return await (await _testWhichChannel())
+        ?.invokeMethod(_isServiceRunningMethod) as bool;
+  }
+
+  Future<bool> isServiceRunning() async {
+    try {
+      return await _isServiceRunning();
+    } catch (e) {
+      _printError(
+        "Is Service Running Error: $e",
       );
       return false;
     }

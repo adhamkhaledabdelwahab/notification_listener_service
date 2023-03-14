@@ -19,18 +19,24 @@ public class NotificationServiceFlutterEngineUtils {
         Long callback = SharedPreferencesUtils.getInstance(context).getNotificationCallback();
         if (callback != null) {
             FlutterCallbackInformation callbackInformation =
-                    FlutterCallbackInformation.lookupCallbackInformation(callback);
+                    FlutterCallbackInformation
+                            .lookupCallbackInformation(callback);
             DartExecutor.DartCallback dartCallback = new DartExecutor
-                    .DartCallback(context.getAssets(),
-                    context.getPackageCodePath(), callbackInformation);
+                    .DartCallback(
+                    context.getAssets(),
+                    context.getPackageCodePath(),
+                    callbackInformation
+            );
             engine.getDartExecutor().executeDartCallback(dartCallback);
         }
 
         if (!engine.getAccessibilityChannel().flutterJNI.isAttached()) {
             FlutterInjector.instance().flutterLoader().startInitialization(context);
-            FlutterInjector.instance().flutterLoader().ensureInitializationComplete(context, new String[]{});
+            FlutterInjector.instance().flutterLoader()
+                    .ensureInitializationComplete(context, new String[]{});
             engine.getAccessibilityChannel().flutterJNI.attachToNative();
         }
+
         return engine;
     }
 }
